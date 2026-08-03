@@ -8,24 +8,26 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
         body {
             min-height: 100vh; display: flex; justify-content: center; align-items: center;
-            background: linear-gradient(135deg, #0f172a, #1e1b4b), url('https://alphacoders.com') no-repeat center center/cover;
+            background: linear-gradient(135deg, #0f172a, #1e1b4b), url('https://pinimg.com') no-repeat center center/cover;
             background-blend-mode: overlay; overflow: hidden;
         }
-        /* หน้าต่างกระจกฝ้าเบลอ */
         .glass-card {
             background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-radius: 24px; padding: 40px; width: 90%; max-width: 400px; text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             transition: all 0.3s ease;
         }
-        /* ⚡ เอฟเฟกต์ไฟแฟลชสีขาว 1.5 วินาที */
         .flash-active { animation: white-flash 1.5s ease-in-out; }
         @keyframes white-flash {
             0% { border-color: rgba(255, 255, 255, 1); box-shadow: 0 0 40px rgba(255, 255, 255, 1); }
             100% { border-color: rgba(255, 255, 255, 0.1); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
         }
+        .anime-img {
+            width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
+            margin-bottom: 20px; border: 3px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
         h1 { color: #fff; font-size: 32px; margin-bottom: 25px; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-        /* ปุ่มคัดลอกโมเดิร์น มี </> */
         .btn-copy {
             background: linear-gradient(90deg, #6366f1, #a855f7); color: white; border: none;
             padding: 16px 32px; border-radius: 14px; font-size: 18px; font-weight: 600;
@@ -40,6 +42,7 @@
 <body>
 
     <div class="glass-card" id="card">
+        <img class="anime-img" src="https://pinimg.com" alt="Anime">
         <h1>สวัสดีครับ! 👋</h1>
         <button class="btn-copy" onclick="copyText()">
             <span>&lt;\&gt;</span> คัดลอกเลข 100
@@ -53,7 +56,6 @@
                 const card = document.getElementById("card");
                 const toast = document.getElementById("toast");
                 
-                // สั่งให้ไฟแฟลชสีขาวทำงานรอบกล่อง 1.5 วินาที
                 card.classList.add("flash-active");
                 toast.style.display = "block";
                 
