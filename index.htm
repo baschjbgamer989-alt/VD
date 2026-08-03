@@ -3,125 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Copy Web</title>
+    <title>Modern Glassmorphism</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
         body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                        url('https://alphacoders.com') no-repeat center center/cover;
-            overflow: hidden;
+            min-height: 100vh; display: flex; justify-content: center; align-items: center;
+            background: linear-gradient(135deg, #0f172a, #1e1b4b), url('https://alphacoders.com') no-repeat center center/cover;
+            background-blend-mode: overlay; overflow: hidden;
         }
-
-        /* 🌈 เอฟเฟกต์ไฟวิ่ง RGB รอบกล่อง */
-        @keyframes rgb-glow {
-            0% { border-color: #ff0000; box-shadow: 0 0 25px #ff0000; }
-            20% { border-color: #00ff00; box-shadow: 0 0 25px #00ff00; }
-            40% { border-color: #0000ff; box-shadow: 0 0 25px #0000ff; }
-            60% { border-color: #ffff00; box-shadow: 0 0 25px #ffff00; }
-            80% { border-color: #ff00ff; box-shadow: 0 0 25px #ff00ff; }
-            100% { border-color: #ff0000; box-shadow: 0 0 25px #ff0000; }
+        /* หน้าต่างกระจกฝ้าเบลอ */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px; padding: 40px; width: 90%; max-width: 400px; text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
         }
-
-        .container {
-            background: rgba(15, 15, 25, 0.85);
-            backdrop-filter: blur(12px);
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            border: 3px solid #ff0000;
-            animation: rgb-glow 4s linear infinite;
+        /* ⚡ เอฟเฟกต์ไฟแฟลชสีขาว 1.5 วินาที */
+        .flash-active { animation: white-flash 1.5s ease-in-out; }
+        @keyframes white-flash {
+            0% { border-color: rgba(255, 255, 255, 1); box-shadow: 0 0 40px rgba(255, 255, 255, 1); }
+            100% { border-color: rgba(255, 255, 255, 0.1); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
         }
-
-        .anime-profile {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px;
-            border: 3px solid #fff;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-        }
-
-        h1 {
-            color: #fff;
-            font-size: 32px;
-            margin-bottom: 25px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        /* 🔘 ปุ่มกดคัดลอกพร้อมไฟเรืองแสง */
+        h1 { color: #fff; font-size: 32px; margin-bottom: 25px; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+        /* ปุ่มคัดลอกโมเดิร์น มี </> */
         .btn-copy {
-            background: #ff4a5a;
-            color: #fff;
-            border: 2px solid #fff;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 20px;
-            cursor: pointer;
-            transition: 0.2s ease;
-            box-shadow: 0 0 15px #ff4a5a;
-            width: 100%;
+            background: linear-gradient(90deg, #6366f1, #a855f7); color: white; border: none;
+            padding: 16px 32px; border-radius: 14px; font-size: 18px; font-weight: 600;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); width: 100%; transition: 0.2s;
         }
-
-        .btn-copy:hover {
-            background: #ff6b7b;
-            transform: scale(1.03);
-            box-shadow: 0 0 25px #ff6b7b;
-        }
-
-        .btn-copy:active {
-            transform: scale(0.98);
-        }
-
-        /* 💬 ข้อความแจ้งเตือนเมื่อคัดลอกสำเร็จ */
-        .alert-text {
-            color: #00ff77;
-            margin-top: 15px;
-            font-size: 14px;
-            font-weight: bold;
-            display: none;
-            text-shadow: 0 0 5px #00ff77;
-        }
+        .btn-copy:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(168, 85, 247, 0.6); }
+        .btn-copy:active { transform: scale(0.98); }
+        .toast { color: #00ff77; margin-top: 15px; font-weight: bold; display: none; text-shadow: 0 0 8px #00ff77; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <img class="anime-profile" src="https://wallpapers.com" alt="Anime Profile">
-        
+    <div class="glass-card" id="card">
         <h1>สวัสดีครับ! 👋</h1>
-        
-        <!-- ปุ่มกดเพื่อคัดลอกคำว่า 100 -->
-        <button class="btn-copy" onclick="copyText()">📋 คัดลอกเลข 100</button>
-        
-        <div id="alert" class="alert-text">คัดลอกคำว่า "100" สำเร็จแล้ว!</div>
+        <button class="btn-copy" onclick="copyText()">
+            <span>&lt;\&gt;</span> คัดลอกเลข 100
+        </button>
+        <div id="toast" class="toast">คัดลอก "100" สำเร็จแล้ว!</div>
     </div>
 
     <script>
         function copyText() {
-            // ระบบสั่งคัดลอกคำว่า 100 เข้าคลิปบอร์ด
             navigator.clipboard.writeText("100").then(() => {
-                const alertBox = document.getElementById("alert");
-                alertBox.style.display = "block"; // แสดงข้อความสีเขียว
+                const card = document.getElementById("card");
+                const toast = document.getElementById("toast");
                 
-                // ซ่อนข้อความแจ้งเตือนหลังจากผ่านไป 2 วินาที
+                // สั่งให้ไฟแฟลชสีขาวทำงานรอบกล่อง 1.5 วินาที
+                card.classList.add("flash-active");
+                toast.style.display = "block";
+                
                 setTimeout(() => {
-                    alertBox.style.display = "none";
-                }, 2000);
-            }).catch(err => {
-                console.error('ไม่สามารถคัดลอกได้:', err);
+                    card.classList.remove("flash-active");
+                    toast.style.display = "none";
+                }, 1500);
             });
         }
     </script>
